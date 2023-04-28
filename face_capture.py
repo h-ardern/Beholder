@@ -9,7 +9,7 @@ def access_setter(approved,username):
             json.dump({username:False}, f)
 
     elif approved == 'y':
-        with open((username+'.json'), 'w') as f:
+        with open(('users'+username+'.json'), 'w') as f:
             json.dump({username:True}, f)
 
     else:
