@@ -1,0 +1,5 @@
+Initilise a python 3.9 virtual enviroment
+
+run pip install -r requirements.txt
+
+to run program run "python beholder.py" from project root directory.
