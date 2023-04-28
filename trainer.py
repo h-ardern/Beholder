@@ -11,8 +11,8 @@ def getImagesAndLabels(path,detector):
     for imagePath in imagePaths:
         PIL_img = Image.open(imagePath).convert('L') # grayscale
         img_numpy = np.array(PIL_img,'uint8')
-        ascii_id = ''.join(str(ord(c)) for c in os.path.split(imagePath)[-1].split(".")[1])
-        id = int(ascii_id)
+        usr = str(os.path.split(imagePath)[-1].split(".")[1])
+        id = int(usr.strip('w'))
         faces = detector.detectMultiScale(img_numpy)
         for (x,y,w,h) in faces:
             faceSamples.append(img_numpy[y:y+h,x:x+w])

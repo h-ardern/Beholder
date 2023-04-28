@@ -3,14 +3,38 @@ import cv2
 import os
 
 def access_setter(approved,username):
-
+    username = username.strip('w')
     if approved == 'n':
-        with open((username+'.json'), 'w') as f:
-            json.dump({username:False}, f)
+        print("Reading User Data")
+        try:
+            with open('users/authorised.json', "rt") as fp:
+                data = json.load(fp)
+            print("Data: %s" % data)
+        except IOError:
+            print("Could not read file, starting from scratch")
+            data = {}
+
+        data[username] = False
+
+        print("Overwriting Data")
+        with open('users/authorised.json', "wt") as fp:
+            json.dump(data, fp)
 
     elif approved == 'y':
-        with open(('users'+username+'.json'), 'w') as f:
-            json.dump({username:True}, f)
+        print("Reading User Data")
+        try:
+            with open('users/authorised.json', "rt") as fp:
+                data = json.load(fp)
+            print("Data: %s" % data)
+        except IOError:
+            print("Could not read file, starting from scratch")
+            data = {}
+
+        data[username] = True
+
+        print("Overwriting Data")
+        with open('users/authorised.json', "wt") as fp:
+            json.dump(data, fp)
 
     else:
         approved = input('\n That was not a valid answer (y/n)')

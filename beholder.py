@@ -20,11 +20,14 @@ def splash():
 
 def init():
     option = int(input(
-        'BEHOLDER _ INPUT//: Please press 1 to add a person to the dataset \n                     Press 2 to run the system'))
+        'BEHOLDER _ INPUT//: Please press 1 to add a person to the dataset \n                    Press 2 to run the system or 3 to quit: '))
     if option == 1:
         add_usr()
+        init()
     elif option == 2:
         face_rec(camera_select())
+    elif option == 3:
+        exit()
     else:
         print('Not a valid input')
         init()
@@ -37,7 +40,7 @@ def add_usr():
 
 def camera_select():
     cam = input(
-        " BEHOLDER _ INPUT//: PLEASE ENTER ID OF DESIRED CAMERA\n[PRESS ENTER FOR DEFAULT | ENTER \'L\' FOR LIST OF DEVICES} - ")
+        "BEHOLDER _ INPUT//: PLEASE ENTER ID OF DESIRED CAMERA\nPRESS ENTER FOR DEFAULT | ENTER \'L\' FOR LIST OF DEVICES} - ")
     if cam == "":
         cam = 0
     elif cam == 'L' or cam == 'l':

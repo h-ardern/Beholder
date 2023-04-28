@@ -6,10 +6,13 @@ import json
 
 def face_rec(cam):
     print('BEHOLDER //: FACE_RECOGNITION LOADING')
+    f = open('users/authorised.json', "rb")
+    users = json.load(f)
+    print(users)
     recognizer = cv2.face.LBPHFaceRecognizer_create()
     recognizer.read('trainer/trainer.yml')
     cascadePath = "Cascades/haarcascade_frontalface_default.xml"
-    faceCascade = cv2.CascadeClassifier(cascadePath);
+    faceCascade = cv2.CascadeClassifier(cascadePath)
     font = cv2.FONT_HERSHEY_SIMPLEX
     # iniciate id counter
     id = 0
@@ -31,7 +34,16 @@ def face_rec(cam):
             minSize=(int(minW), int(minH)),
         )
         for (x, y, w, h) in faces:
-            cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            color = (0, 255, 255)
+            try:
+                if users[str(id)] == True:
+                    color = (0, 255 , 0)
+                elif users[str(id)] == False:
+                    color = (0, 0, 255)
+            except:
+                color = (0, 255, 255)
+
+            cv2.rectangle(img, (x, y), (x + w, y + h), color, 2)
 
             id, confidence = recognizer.predict(gray[y:y + h, x:x + w])
 
